@@ -8,9 +8,9 @@ class AudioController {
         this.gameOverSound = new Audio('assets/audio/gameover.mp3');
         this.bgMusic.volume = 0.0;
         this.bgMusic.loop = true;
-    };
+    }
     startMusic() {
-        this.bgMusic.play()
+        this.bgMusic.play();
     }
     stopMusic() {
         this.bgMusic.pause();
@@ -24,7 +24,7 @@ class AudioController {
     }
     victory() {
         this.stopMusic();
-        this.victory.play();
+        this.victorySound.play();
     }
     gameOver() {
         this.stopMusic();
@@ -47,7 +47,6 @@ class MixOrMatch {
         this.timeRemaining = this.totalTime;
         this.matchedCards = [];
         this.busy = true;
-
         setTimeout(() => {
             this.audioController.startMusic();
             this.shuffleCards();
@@ -60,23 +59,21 @@ class MixOrMatch {
     }
     hideCards() {
         this.cardsArray.forEach(card => {
-            card.classList.remove('visable');
+            card.classList.remove('visible');
             card.classList.remove('matched');
         });
     }
     flipCard(card) {
-        if (this.canFlipCard(card)) {
+        if(this.canFlipCard(card)) {
             this.audioController.flip();
             this.totalClicks++;
-            this.ticker.innerHTML = this.totalClicks;
-            card.classList.add('visable');
+            this.ticker.innerText = this.totalClicks;
+            card.classList.add('visible');
 
-            if(this.cardToCheck){
-               this.checkForCardMatch(card);
-            } else {
+            if(this.cardToCheck)
+                this.checkForCardMatch(card);
+            else
                 this.cardToCheck = card;
-            }
-            
         }
     }
     checkForCardMatch(card) {
@@ -93,17 +90,16 @@ class MixOrMatch {
         card1.classList.add('matched');
         card2.classList.add('matched');
         this.audioController.match();
-        if (this.matchedCards.length === this.cardsArray) {
-            this.victory();
-        }
+        if(this.matchedCards.length === this.cardsArray.length)
+            this.victory(); 
     }
     cardMisMatch(card1, card2) {
         this.busy = true;
         setTimeout(() => {
-            card1.classList.remove('visable');
-            card2.classList.remove('visable');
+            card1.classList.remove('visible');
+            card2.classList.remove('visible');
             this.busy = false;
-        }, 1000)
+        }, 1000);
     }
     getCardType(card) {
         return card.getElementsByClassName('card-value')[0].src;
@@ -112,34 +108,33 @@ class MixOrMatch {
         return setInterval(() => {
             this.timeRemaining--;
             this.timer.innerText = this.timeRemaining;
-            if (this.timeRemaining === 0 ) {
+            if(this.timeRemaining === 0)
                 this.gameOver();
-            }
         }, 1000);
     }
     gameOver() {
-        clearInterval(this.countdown)
+        clearInterval(this.countDown);
         this.audioController.gameOver();
-        document.getElementById('game-over-text').classList.add('visable')
+        document.getElementById('game-over-text').classList.add('visible');
     }
     victory() {
         clearInterval(this.countDown);
         this.audioController.victory();
-        document.getElementById('victory-text').classList.add('visable')
-
+        document.getElementById('victory-text').classList.add('visible');
     }
+
     shuffleCards() {
-        for (let i = this.cardsArray.length - 1; i > 0; i--) {
+        for(let i = this.cardsArray.length - 1; i > 0; i--) {
             let randIndex = Math.floor(Math.random() * (i+1));
             this.cardsArray[randIndex].style.order = i;
             this.cardsArray[i].style.order = randIndex;
         }
     }
+
     canFlipCard(card) {
         return !this.busy && !this.matchedCards.includes(card) && card !== this.cardToCheck;
     }
 }
-
 
 function ready() {
     let overlays = Array.from(document.getElementsByClassName('overlay-text'));
@@ -162,8 +157,7 @@ function ready() {
         });
     });
 }
-
-if (document.readyState === 'loading') {
+if(document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', ready());
 } else {
     ready();

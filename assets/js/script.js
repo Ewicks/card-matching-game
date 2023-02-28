@@ -6,7 +6,7 @@ class AudioController {
         this.incorrectMatchSound = new Audio('assets/audio/no.mp3');
         this.victorySound = new Audio('assets/audio/victory.mp3');
         this.gameOverSound = new Audio('assets/audio/gameover.mp3');
-        this.bgMusic.volume = 0.0;
+        this.bgMusic.volume = 0.3;
         this.bgMusic.loop = true;
     };
     startMusic() {
@@ -30,6 +30,7 @@ class AudioController {
         this.stopMusic();
         this.gameOverSound.play();
     }
+  
 }
 
 class MixOrMatch {
@@ -41,12 +42,22 @@ class MixOrMatch {
         this.ticker = document.getElementById('flips');
         this.audioController = new AudioController();
     }
+
     startGame() {
         this.cardToCheck = null;
         this.totalClicks = 0;
         this.timeRemaining = this.totalTime;
         this.matchedCards = [];
         this.busy = true;
+        let muteBtn = document.getElementById('mute-btn');
+        // let isPlaying = false;
+      
+        muteBtn.addEventListener('click', function() {
+          $('i').toggleClass('fa-volume-xmark');
+          test()
+
+      
+        })
 
         setTimeout(() => {
             this.audioController.startMusic();
@@ -57,6 +68,11 @@ class MixOrMatch {
         this.hideCards();
         this.timer.innerText = this.timeRemaining;
         this.ticker.innerText = this.totalClicks;
+       
+    }
+    test() {
+        this.audioController.stopMusic();
+
     }
     hideCards() {
         this.cardsArray.forEach(card => {
@@ -169,3 +185,4 @@ if (document.readyState === 'loading') {
 } else {
     ready();
 }
+

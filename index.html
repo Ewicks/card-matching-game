@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="assets/js/script.js" async></script>
+    <script src="https://kit.fontawesome.com/b2fe83387a.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <body>
@@ -30,8 +31,15 @@
         Time <span id="time-remaining">100</span>
       </div>
       <div class="game-info">
+        
+
         Flips <span id="flips">0</span>
       </div>
+      <div class="game-info">
+          <i id="mute-btn" class="fa-solid fa-volume-high"></i>
+      </div>
+     
+
     </div>
     <div class="card">
       <div class="card-back card-face">
@@ -163,8 +171,18 @@
     </div>
   </div>
    
-  
+<script>
+  // let muteBtn = document.getElementById('mute-btn');
+  // let isPlaying = false;
+
+  // muteBtn.addEventListener('click', function() {
+  //   $('i').toggleClass('fa-volume-xmark');
+  //   this.stopMusic();
+
+  // })
+</script>
 </body>
+
 </html>
 
 

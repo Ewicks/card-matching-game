@@ -8,7 +8,9 @@ class AudioController {
         this.gameOverSound = new Audio('assets/audio/gameover.mp3');
         this.bgMusic.volume = 0.3;
         this.bgMusic.loop = true;
+        
     };
+   
     startMusic() {
         this.bgMusic.play()
     }
@@ -49,15 +51,7 @@ class MixOrMatch {
         this.timeRemaining = this.totalTime;
         this.matchedCards = [];
         this.busy = true;
-        let muteBtn = document.getElementById('mute-btn');
-        // let isPlaying = false;
-      
-        muteBtn.addEventListener('click', function() {
-          $('i').toggleClass('fa-volume-xmark');
-          test()
-
-      
-        })
+       
 
         setTimeout(() => {
             this.audioController.startMusic();
@@ -69,10 +63,6 @@ class MixOrMatch {
         this.timer.innerText = this.timeRemaining;
         this.ticker.innerText = this.totalClicks;
        
-    }
-    test() {
-        this.audioController.stopMusic();
-
     }
     hideCards() {
         this.cardsArray.forEach(card => {
@@ -136,6 +126,7 @@ class MixOrMatch {
     gameOver() {
         clearInterval(this.countdown)
         this.audioController.gameOver();
+        this.audioController.stopMusic();
         document.getElementById('game-over-text').classList.add('visable')
     }
     victory() {
@@ -155,14 +146,17 @@ class MixOrMatch {
     canFlipCard(card) {
         return !this.busy && !this.matchedCards.includes(card) && card !== this.cardToCheck;
     }
+   
 }
 
 
 function ready() {
     let overlays = Array.from(document.getElementsByClassName('overlay-text'));
     let cards = Array.from(document.getElementsByClassName('card'));
-    let game = new MixOrMatch(100, cards); 
+    let muteBtn = document.getElementById('mute-btn');
 
+    let game = new MixOrMatch(100, cards); 
+    
     overlays.forEach(overlay => {
         overlay.addEventListener('click', () => {
             overlay.classList.remove('visable');
@@ -178,6 +172,8 @@ function ready() {
             game.flipCard(card);
         });
     });
+   
+   
 }
 
 if (document.readyState === 'loading') {
@@ -185,4 +181,6 @@ if (document.readyState === 'loading') {
 } else {
     ready();
 }
+
+
 

@@ -36,8 +36,6 @@ html {
 .card {
   height: 175px;
   width: 125px;
-  /* border-radius: 20px; */
-  /* border: 1px solid #69FFDA; */
   position: relative;
 }
 
@@ -79,7 +77,7 @@ html {
   justify-content: center;
   align-items: center;
   z-index: 100;
-  color: green;
+  color: #CCD6F6;
   display: none;
 }
 
